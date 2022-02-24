@@ -1,10 +1,15 @@
 0. installare dotenv nel progetto (npm install dotenv)
-1. creare un file dotenv contentente la chiave MONGODG_URI contenente la connectionstring del db
-2. aggiungere una validazione allo username dell'utente controllando che sia più lungo di 6 caratteri
-3. aggiungere nello schema dell'utente un campo stringa "SALT"
-4. aggiungere un metodo a livello documento (schema.methods.["nome metodo"]=function(){}) chiamato checkPassword che prenda come input la password, legga il salt dal documento (this.salt) e chiami la funzione di check password in services/passwordCrypt (importandola)
-5. creare un middleware che prima di salvare un utente cripta la password con la funzione in services/passwordCrypt e salva il salt
-6. modificare auth per fare in modo che venga utilizzata la funzione checkPassword in passwordCrypt
-7. aggiungere il campo user di tipo Schema.ObjectId nello schema degli items (import {Schema} from 'mongoose')
-8. settare la ref all'interno degli items per la popolazione dell'utente
-9. nella get degli items popolare il campo
+1. creare un file dotenv contentente la chiave MONGODB_URI contenente la connectionstring del db
+2. utilizzare la connection string così caricata in MONGODB_URI in services/db/mongoose.js
+3. aggiungere una validazione allo username dell'utente controllando che sia più lungo di 6 caratteri
+4. aggiungere nello schema dell'utente un campo stringa "passwordsalt"
+5. creare un utente con la post (tramite postman)
+6. aggiungere un metodo a livello documento (schema.methods.["nome metodo"]=function(){}) chiamato checkPassword che prenda come input la password, legga il salt dal documento (this.salt) e chiami la funzione di check password in services/passwordCrypt (importandola)
+7. creare un middleware che prima di salvare un utente cripta la password con la funzione in services/passwordCrypt e salva il salt
+userSchema.pre('save',function(next){
+
+})
+8. modificare auth per fare in modo che venga utilizzata la funzione checkPassword in passwordCrypt
+9. aggiungere il campo user di tipo Schema.ObjectId nello schema degli items (import {Schema} from 'mongoose')
+10. settare la ref all'interno degli items per la popolazione dell'utente
+11. nella get degli items popolare il campo
